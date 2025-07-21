@@ -2,12 +2,12 @@
   "name": "bitespeed-identity-reconciliation",
   "version": "1.0.0",
   "description": "Backend assessment project for bitespeed",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
-    "start": "node ./dist/index.js",
-    "start:dev": "nodemon ./src/server.ts"
+    "start": "cross-env NODE_ENV=production node ./dist/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.ts"
   },
   "keywords": [],
   "author": "Ashutosh Singh",
@@ -17,12 +17,15 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
     "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/helmet": "^4.0.0",
+    "@types/morgan": "^1.9.10",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

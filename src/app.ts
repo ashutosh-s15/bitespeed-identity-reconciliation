@@ -1,6 +1,10 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import morgan from 'morgan';
+
+import logger from './utils/logger';
+import errorMiddleware from './middleware/error.middleware';
 
 class App {
   public app: express.Application;
@@ -24,6 +28,11 @@ class App {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(
+      morgan('combined', {
+        stream: { write: message => logger.info(message.trim()) },
+      })
+    );
   }
 
   private initializeRoutes() {
@@ -31,7 +40,7 @@ class App {
   }
 
   private initializeErrorHandling() {
-    this.app.use(() => {});
+    this.app.use(errorMiddleware);
   }
 }
 
