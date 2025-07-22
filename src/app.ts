@@ -3,11 +3,13 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 
+import ContactRoute from './routes/contact.route';
 import logger from './utils/logger';
 import errorMiddleware from './middleware/error.middleware';
 
 class App {
   public app: express.Application;
+  public contactRoute = new ContactRoute();
 
   constructor() {
     this.app = express();
@@ -36,7 +38,7 @@ class App {
   }
 
   private initializeRoutes() {
-    this.app.use('/', () => {});
+    this.app.use('/', this.contactRoute.router);
   }
 
   private initializeErrorHandling() {
