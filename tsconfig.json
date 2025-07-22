@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["ES2020", "DOM"],
-    "types": ["node"] // ← This is critical
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   }
 }
