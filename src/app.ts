@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
+import * as process from 'process';
 
 import ContactRoute from './routes/contact.route';
 import logger from './utils/logger';
