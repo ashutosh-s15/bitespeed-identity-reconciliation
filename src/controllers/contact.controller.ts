@@ -12,9 +12,7 @@ class ContactController {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-    logger.info(
-      `[ContactController][identify] API called with payload: ${req.body}`
-    );
+    logger.info(`[ContactController][identify] API called`);
     try {
       const request: IdentifyRequest = {
         email: req.body.email,

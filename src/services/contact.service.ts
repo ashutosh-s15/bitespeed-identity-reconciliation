@@ -24,14 +24,8 @@ class ContactService {
       phoneNumber
     );
 
-    logger.info(
-      `[ContactController][identify] Existing contact found: ${existingContacts}`
-    );
-
     if (existingContacts.length === 0) {
-      logger.info(
-        `[ContactController][identify] No existing contacts found for: ${request.email} and ${request.phoneNumber}`
-      );
+      logger.info(`[ContactController][identify] No existing contacts found`);
       // No existing contacts, create a new primary contact
       const newContact = await this.contactModel.create({
         phoneNumber: phoneNumber || null,
@@ -41,7 +35,7 @@ class ContactService {
       });
 
       logger.info(
-        `[ContactController][identify] New contact created: ${newContact}`
+        `[ContactController][identify] New contact created with contact id: ${newContact?.id}`
       );
 
       return new ContactResponseDto(
