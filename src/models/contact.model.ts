@@ -1,5 +1,6 @@
 import { Contact } from '../interfaces/contact.interface';
 import pool from '../config/database';
+import logger from '../utils/logger';
 
 class ContactModel {
   public async create(
@@ -51,6 +52,7 @@ class ContactModel {
     query += conditions.join(' OR ') + ')';
 
     const [rows] = await pool.execute(query, values);
+    logger.info(`[ContactModel][findByEmailOrPhone] rows found: ${rows}`);
     return rows as Contact[];
   }
 
