@@ -12,8 +12,8 @@ export class ContactResponseDto implements ContactResponse {
     primaryContact: Contact,
     secondaryContacts: Contact[]
   ): ContactResponseDto {
-    const emails = [primaryContact.email];
-    const phoneNumbers = [primaryContact.phoneNumber];
+    const emails = [primaryContact?.email];
+    const phoneNumbers = [primaryContact?.phoneNumber];
     const secondaryContactIds: number[] = [];
 
     for (const contact of secondaryContacts) {
