@@ -52,7 +52,6 @@ class ContactModel {
     query += conditions.join(' OR ') + ')';
 
     const [rows] = await pool.execute(query, values);
-    logger.info(`[ContactModel][findByEmailOrPhone] rows found: ${rows}`);
     return rows as Contact[];
   }
 
