@@ -7,7 +7,7 @@ class ContactModel {
     contact: Omit<Contact, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>
   ): Promise<Contact> {
     const query = `
-      INSERT INTO Contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt)
+      INSERT INTO contact (phoneNumber, email, linkedId, linkPrecedence, createdAt, updatedAt)
       VALUES (?, ?, ?, ?, NOW(), NOW())
     `;
     const values = [
@@ -24,7 +24,7 @@ class ContactModel {
   }
 
   public async findById(id: number): Promise<Contact> {
-    const query = 'SELECT * FROM Contact WHERE id = ? AND deletedAt IS NULL';
+    const query = 'SELECT * FROM contact WHERE id = ? AND deletedAt IS NULL';
     const [rows] = await pool.execute(query, [id]);
     return (rows as Contact[])[0];
   }
@@ -35,7 +35,7 @@ class ContactModel {
   ): Promise<Contact[]> {
     if (!email && !phoneNumber) return [];
 
-    let query = 'SELECT * FROM Contact WHERE deletedAt IS NULL AND (';
+    let query = 'SELECT * FROM contact WHERE deletedAt IS NULL AND (';
     const conditions: string[] = [];
     const values: (string | null)[] = [];
 
@@ -71,7 +71,7 @@ class ContactModel {
     }
 
     setClauses.push('updatedAt = NOW()');
-    const query = `UPDATE Contact SET ${setClauses.join(', ')} WHERE id = ?`;
+    const query = `UPDATE contact SET ${setClauses.join(', ')} WHERE id = ?`;
     values.push(id);
 
     await pool.execute(query, values);
@@ -80,7 +80,7 @@ class ContactModel {
 
   public async findLinkedContacts(primaryId: number): Promise<Contact[]> {
     const query =
-      'SELECT * FROM Contact WHERE (id = ? OR linkedId = ?) AND deletedAt IS NULL';
+      'SELECT * FROM contact WHERE (id = ? OR linkedId = ?) AND deletedAt IS NULL';
     const [rows] = await pool.execute(query, [primaryId, primaryId]);
     return rows as Contact[];
   }
